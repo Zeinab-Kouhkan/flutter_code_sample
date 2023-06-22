@@ -25,7 +25,7 @@ abstract class GlobalErrorHandler {
   }
 
   static bool _isUselessErrorToSubmit(Object error) {
-    return error is DioError || // already handled in DioErrorHandlerInterceptor
+    return error is DioException || // already handled in DioErrorHandlerInterceptor
         error is HttpException || // already handled in DioErrorHandlerInterceptor
         error is SocketException || // not useful
         error is HandshakeException || // not useful

@@ -115,7 +115,7 @@ class DioErrorHandlerInterceptor extends Interceptor {
     }
     message ??= intl
         .httpErrorWithCode(err.response?.statusCode.toString() ?? 'Unknown');
-    ToastUtils.show(message!, length: Toast.LENGTH_LONG);
+    ToastUtils.show(message, length: Toast.LENGTH_LONG);
   }
 
   /// Redirect user to login page
@@ -126,15 +126,15 @@ class DioErrorHandlerInterceptor extends Interceptor {
   }
 
   /// Submit http error to crashlytics
-  void _submitNonFatalReport(DioError err, [String? message]) {
+  void _submitNonFatalReport(DioException err, [String? message]) {
     final headers = Map.of(err.requestOptions.headers);
     headers.remove('Authorization'); // secret key should not be submitted
     headers.remove('Fcm-Token'); // secret key should not be submitted
-    final reason = '${message ?? ''}${message != null ? ' \$\n' : ''}'
-        'Http ${err.response?.statusCode} error \$\n'
-        'Request URI: ${err.requestOptions.uri} \$\n'
-        'Request Body: ${err.requestOptions.data} \$\n'
-        'Request Headers: $headers \$\n';
+    // final reason = '${message ?? ''}${message != null ? ' \$\n' : ''}'
+    //     'Http ${err.response?.statusCode} error \$\n'
+    //     'Request URI: ${err.requestOptions.uri} \$\n'
+    //     'Request Body: ${err.requestOptions.data} \$\n'
+    //     'Request Headers: $headers \$\n';
     // AppCrashlytics.recordError(err.response?.data, stack: err.stackTrace, reason: reason);
   }
 

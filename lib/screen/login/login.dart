@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_code_sample/base/resourceful_state.dart';
-import 'package:flutter_code_sample/routes.dart';
 import 'package:flutter_code_sample/utils/navigator.dart';
 import 'package:sizer/sizer.dart';
 
