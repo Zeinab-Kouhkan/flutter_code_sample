@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "appName": "Flutter code sample",
+  "farsi": "فارسی",
+  "english": "English",
+  "french": "française",
+  "sendReceiveTimeoutError": "An error occurred during send or receive, please try again.",
+  "socketError": "Error connecting to server, please check your internet connection.",
+  "serverInternalError": "An error occurred, please try again later.",
+  "httpErrorWithCode": "Error with code {code} occurred, contact support if necessary.",
+  "@httpErrorWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  }
+}
