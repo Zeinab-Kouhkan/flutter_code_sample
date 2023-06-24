@@ -8,11 +8,25 @@
   "socketError": "Error connecting to server, please check your internet connection.",
   "serverInternalError": "An error occurred, please try again later.",
   "httpErrorWithCode": "Error with code {code} occurred, contact support if necessary.",
+  "noInternetTitle": "No internet access",
   "@httpErrorWithCode": {
     "placeholders": {
       "code": {
         "type": "String"
       }
     }
-  }
+  },
+  "welcomeBack": "Welcome back",
+  "loginToYourAccount": "Login to your account",
+  "username": "Username",
+  "pleaseEnterUsername": "Please enter username.",
+  "password": "Password",
+  "pleaseEnterPassword": "Please enter password.",
+  "login": "Login",
+  "dontHaveAnAccount": "Don't have an account?",
+  "signup": "Signup",
+  "products": "Products",
+  "logout": "Logout",
+  "setting": "Setting",
+  "languages": "Languages"
 }

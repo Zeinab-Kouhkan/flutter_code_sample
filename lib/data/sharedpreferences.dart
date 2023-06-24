@@ -67,6 +67,8 @@ abstract class AppSharedPreferences {
     (await preference).setBool(_keyIsLanguageSelected, value);
   }
 
+
+
   static const _keyLocaleCode = 'localeCode';
   static const _keyAuthToken = 'authToken';
   static const _keyIsLoggedIn = 'isLoggedIn';

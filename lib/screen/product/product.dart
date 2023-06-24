@@ -1,9 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_code_sample/base/resourceful_state.dart';
+import 'package:flutter_code_sample/data/entity/product.dart';
+import 'package:flutter_code_sample/screen/product/detail/args.dart';
 import 'package:flutter_code_sample/utils/navigator.dart';
+import 'package:flutter_code_sample/widget/appbar_back.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../themes/colors.dart';
+import 'bloc/bloc.dart';
+import 'bloc/state.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -16,57 +23,71 @@ class _ProductPageState extends ResourcefulState<ProductPage> {
   TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isSearchStarted = false;
+  late ProductBloc bloc;
 
   @override
   void initState() {
     super.initState();
+    bloc = ProductBloc();
     textController = TextEditingController();
   }
-
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .primaryContainer,
-        appBar: AppBar(
-          title: Text(
-            'Awesome Store',
-            style: typography.titleLarge?.copyWith(color: AppColors.scaffold),
-          ),
-          elevation: 0,
-
-
-        ),
-        body:productList()
+    return BlocBuilder<ProductBloc, ProductState>(
+      bloc: bloc,
+      builder: (context, state) {
+        return Scaffold(
+            key: scaffoldKey,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            appBar: AppBarBack(
+              title: intl.products,
+              context: context,
+              progressVisible: state is LoadingProductState,
+              actions: [
+                IconButton(
+                  onPressed: () => NavigatorApp.setting(context),
+                  icon: const Icon(Icons.settings),
+                )
+              ],
+            ),
+            body: state.when(
+              loaded: (products) => productList(products),
+              error: (message) => Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(message),
+              )),
+              initial: () => const SizedBox.shrink(),
+              loading: () {
+                return null;
+              },
+            ));
+      },
     );
   }
 
-  Widget productList(){
+  Widget productList(List<ProductData> products) {
     return GridView.builder(
-      padding:  EdgeInsets.symmetric(horizontal: 3.w,vertical: 2.h),
+      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
       itemCount: 10,
-      itemBuilder: (context, index) =>item() ,
-      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1,
-        crossAxisSpacing: 3.w,
-        mainAxisSpacing: 3.w
-
-      ),
+      itemBuilder: (context, index) => item(products[index]),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1,
+          crossAxisSpacing: 3.w,
+          mainAxisSpacing: 3.w),
     );
-
   }
-  Widget item(){
-   return InkWell(
-     onTap: ()=>NavigatorApp.productDetail(context),
-     child: Container(
+
+  Widget item(ProductData product) {
+    return InkWell(
+      onTap: () =>
+          NavigatorApp.productDetail(context, ProductDetailArgs(product.id)),
+      child: Container(
         decoration: BoxDecoration(
-          color:AppColors.scaffold,
+          color: AppColors.scaffold,
           boxShadow: const [
             BoxShadow(
               blurRadius: 4,
@@ -77,62 +98,41 @@ class _ProductPageState extends ResourcefulState<ProductPage> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(0),
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
-                    ),
-                    child: Image.network(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3LyAUdC0rlLZ1ADbJIQw9RCv23lFwgAJeFg&usqp=CAU',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 2.h,
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-                    child: Text(
-                      'Pinky',
-                      style:typography.bodyMedium!.apply(fontWeightDelta: 1,fontSizeDelta: -1),
-                    ),
-                  ),
-                ],
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: product.image,
+                width: 100,
+                height: 100,
+                fit: BoxFit.scaleDown,
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-                    child: Text(
-                      '\$${'78.2'}',
-                      style: typography.bodyLarge,
-                    ),
-                  ),
-                ],
-              ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Text(
+              product.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: typography.bodyMedium!
+                  .apply(fontWeightDelta: 2, fontSizeDelta: -1),
             ),
           ],
         ),
       ),
-   );
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../data/base/network_response.dart';
 import '../data/entity/login.dart';
+import '../data/entity/product.dart';
 
 part 'api.g.dart';
 
@@ -21,5 +22,11 @@ abstract class ApiClient {
   }
 
   @POST('auth/login')
-  ImperativeNetworkResult login(@Body() LoginRequestData requestData);
+  NetworkResult<LoginData> login(@Body() LoginRequestData requestData);
+
+  @GET('products/list')
+  NetworkResult<List<ProductData>> products();
+
+  @GET('products/show/{id}')
+  NetworkResult<ProductData> productDetail(@Path("id") int id);
 }

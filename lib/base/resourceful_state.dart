@@ -3,7 +3,7 @@ import 'package:flutter_code_sample/extensions/build_context.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:need_resume/need_resume.dart';
 
-import '../nework/error/error_observer.dart';
+import '../network/error/error_observer.dart';
 import '../routes.dart';
 import '../themes/font.dart';
 import '../themes/locale.dart';

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_code_sample/base/resourceful_state.dart';
+import 'package:flutter_code_sample/screen/login/bloc/state.dart';
 import 'package:flutter_code_sample/utils/navigator.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../themes/colors.dart';
+import 'bloc/bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,10 +19,18 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodePassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController(text: 'ia');
-  final TextEditingController _controllerPassword = TextEditingController(text: '/IzPaVeXJ8e');
+  final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
 
   bool _obscurePassword = true;
+
+  late LoginBloc bloc;
+
+  @override
+  void initState() {
+    bloc = LoginBloc();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +43,14 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-               SizedBox(height: 10.h),
+              SizedBox(height: 10.h),
               Text(
-                "Welcome back",
+                intl.welcomeBack,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 10),
               Text(
-                "Login to your account",
+                intl.loginToYourAccount,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 60),
@@ -45,7 +58,7 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
                 controller: _controllerUsername,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  labelText: "Username",
+                  labelText: intl.username,
                   prefixIcon: const Icon(Icons.person_outline),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -57,7 +70,7 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
                 onEditingComplete: () => _focusNodePassword.requestFocus(),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter username.";
+                    return intl.pleaseEnterUsername;
                   }
 
                   return null;
@@ -70,7 +83,7 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
                 obscureText: _obscurePassword,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  labelText: "Password",
+                  labelText: intl.password,
                   prefixIcon: const Icon(Icons.password_outlined),
                   suffixIcon: IconButton(
                       onPressed: () {
@@ -79,8 +92,8 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
                         });
                       },
                       icon: _obscurePassword
-                          ? const Icon(Icons.visibility_outlined)
-                          : const Icon(Icons.visibility_off_outlined)),
+                          ? const Icon(Icons.visibility_off_outlined)
+                          : const Icon(Icons.visibility_outlined)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -90,7 +103,7 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter password.";
+                    return intl.pleaseEnterPassword;
                   }
 
                   return null;
@@ -99,33 +112,60 @@ class _LoginPageState extends ResourcefulState<LoginPage> {
               const SizedBox(height: 60),
               Column(
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        NavigatorApp.popAndPushProduct(context);
-                      }
+                  BlocConsumer<LoginBloc, LoginState>(
+                    bloc: bloc,
+                    listener: (context, state) {
+                      (state is LoadedLoginState)
+                          ? NavigatorApp.popAndPushProduct(context)
+                          : DoNothingAction();
                     },
-                    child: const Text("Login"),
+                    builder: (context, state) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            bloc.login(
+                                userName: _controllerUsername.text,
+                                password: _controllerPassword.text);
+                          }
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(intl.login),
+                            if (state is LoadingLoginState)
+                              Container(
+                                height: 10.w,
+                                width: 10.w,
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(
+                                  color: AppColors.scaffold,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  Row(
+                  /*    Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Don't have an account?"),
+                      Text(intl.dontHaveAnAccount),
                       TextButton(
                         onPressed: () {
                           _formKey.currentState?.reset();
                           NavigatorApp.register(context);
                         },
-                        child: const Text("Signup"),
+                        child: Text(intl.signup),
                       ),
                     ],
-                  ),
+                  ),*/
                 ],
               ),
             ],

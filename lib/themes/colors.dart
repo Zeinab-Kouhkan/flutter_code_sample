@@ -54,7 +54,7 @@ abstract class AppColors {
   static Color onSecondary = Colors.white;
   static Color surface = Colors.white;
   static Color onSurface = const Color(0xFF454545);
- static Color scaffold = const Color(0xFFF5F8FE);
+ static Color scaffold =  const Color(0xFFF5F8FE);
   static  Color onScaffold = const Color(0xFF454545);
   static Color border = const Color(0xFFE5EBF8);
   static Color controlNormal = const Color(0xFFD2D8E5);

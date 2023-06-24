@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_code_sample/app/bloc/bloc.dart';
+import 'package:flutter_code_sample/app/bloc/state.dart';
 import 'package:flutter_code_sample/extensions/build_context.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sizer/sizer.dart';
@@ -41,19 +42,26 @@ class _AppState extends State<App> {
                 statusBarBrightness: Brightness.light,
                 statusBarIconBrightness: Brightness.light,
               ),
-              child: MaterialApp(
-                onGenerateTitle: (context)=>context.intl.appName,
-                debugShowCheckedModeBanner: false,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocale.supportedLocales,
-                theme: theme(AppLocale.defaultLocale),
-                darkTheme: theme(AppLocale.defaultLocale),
-                initialRoute: Routes.initialRoute,
-                routes: Routes.all,
-                onGenerateRoute: Routes.generateRoute,
-                navigatorObservers: [
-                  routeObserver,
-                ],
+              child: BlocBuilder<AppBloc, AppState>(
+                bloc: bloc,
+                builder: (context, state) {
+                  return MaterialApp(
+                    onGenerateTitle: (context) => context.intl.appName,
+                    debugShowCheckedModeBanner: false,
+                    localizationsDelegates: AppLocalizations
+                        .localizationsDelegates,
+                    supportedLocales: AppLocale.supportedLocales,
+                    theme: theme(AppLocale.defaultLocale),
+                    darkTheme: theme(state is LoadedLocaleState?state.locale :AppLocale.defaultLocale),
+                    locale: state is LoadedLocaleState?state.locale :AppLocale.defaultLocale,
+                    initialRoute: Routes.initialRoute,
+                    routes: Routes.all,
+                    onGenerateRoute: Routes.generateRoute,
+                    navigatorObservers: [
+                      routeObserver,
+                    ],
+                  );
+                },
               ));
         }));
   }
@@ -62,8 +70,8 @@ class _AppState extends State<App> {
     return ThemeData(
       scaffoldBackgroundColor: AppColors.scaffold,
       appBarTheme: const AppBarTheme(
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-          ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+      ),
       textTheme: buildTextTheme(locale),
       colorScheme: ColorScheme.fromSeed(
         seedColor: const Color.fromRGBO(32, 63, 129, 1.0),

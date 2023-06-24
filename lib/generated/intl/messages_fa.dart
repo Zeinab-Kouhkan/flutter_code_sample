@@ -26,15 +26,34 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("نمونه کد فلاتر"),
+        "dontHaveAnAccount":
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "farsi": MessageLookupByLibrary.simpleMessage("فارسی"),
         "french": MessageLookupByLibrary.simpleMessage("française"),
         "httpErrorWithCode": m0,
+        "languages": MessageLookupByLibrary.simpleMessage("Languages"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginToYourAccount":
+            MessageLookupByLibrary.simpleMessage("Login to your account"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "noInternetTitle":
+            MessageLookupByLibrary.simpleMessage("No internet access"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pleaseEnterPassword":
+            MessageLookupByLibrary.simpleMessage("Please enter password."),
+        "pleaseEnterUsername":
+            MessageLookupByLibrary.simpleMessage("Please enter username."),
+        "products": MessageLookupByLibrary.simpleMessage("Products"),
         "sendReceiveTimeoutError": MessageLookupByLibrary.simpleMessage(
             "An error occurred during send or receive, please try again."),
         "serverInternalError": MessageLookupByLibrary.simpleMessage(
             "An error occurred, please try again later."),
+        "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "signup": MessageLookupByLibrary.simpleMessage("Signup"),
         "socketError": MessageLookupByLibrary.simpleMessage(
-            "Error connecting to server, please check your internet connection.")
+            "Error connecting to server, please check your internet connection."),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome back")
       };
 }

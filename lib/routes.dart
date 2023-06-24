@@ -5,6 +5,7 @@ import 'package:flutter_code_sample/screen/login/login.dart';
 import 'package:flutter_code_sample/screen/product/detail/detail.dart';
 import 'package:flutter_code_sample/screen/product/product.dart';
 import 'package:flutter_code_sample/screen/register/register.dart';
+import 'package:flutter_code_sample/screen/setting/setting.dart';
 import 'package:flutter_code_sample/screen/splash/splash.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver();
@@ -17,6 +18,7 @@ abstract class Routes {
   static const register = '/register';
   static const products = '/products';
   static const productDetail = '/productDetail';
+  static const setting = '/setting';
 
   static const initialRoute = splash;
 
@@ -28,6 +30,7 @@ abstract class Routes {
     register: routePage(const RegisterPage()),
     products: routePage(const ProductPage()),
     productDetail: routePage(const ProductDetailPage()),
+    setting: routePage(const SettingPage()),
   };
 
   /// Create page from route based on navigation stack and handle back press

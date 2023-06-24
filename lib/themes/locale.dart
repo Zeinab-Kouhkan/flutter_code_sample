@@ -67,7 +67,7 @@ extension LocaleExtensions on Locale {
         return farsi.call();
       case 'en':
         return english.call();
-      case 'ar':
+      case 'fr':
         return french.call();
       default:
         throw 'Locale with languageCode: $languageCode not defined';

@@ -32,7 +32,7 @@ class _SplashPageState extends ResourcefulState<SplashPage> {
   Future<void> handleShowFirstPage() async {
     bool isLogin = await AppSharedPreferences.isLoggedIn;
     if (isLogin) {
-      Navigator.pushNamed(context, Routes.home);
+      Navigator.pushNamed(context, Routes.products);
       return;
     }
     Navigator.pushNamed(context, Routes.login);

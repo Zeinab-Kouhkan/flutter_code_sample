@@ -1,18 +1,32 @@
 {
   "@@locale": "fr",
-  "appName": "Exemple de code flottant",
+  "appName": "Exemple de code Flutter",
   "farsi": "فارسی",
   "english": "English",
   "french": "française",
-  "sendReceiveTimeoutError": "An error occurred during send or receive, please try again.",
-  "socketError": "Error connecting to server, please check your internet connection.",
-  "serverInternalError": "An error occurred, please try again later.",
-  "httpErrorWithCode": "Error with code {code} occurred, contact support if necessary.",
+  "sendReceiveTimeoutError": "Une erreur s'est produite lors de l'envoi ou de la réception, veuillez réessayer.",
+  "socketError": "Erreur de connexion au serveur, veuillez vérifier votre connexion Internet.",
+  "serverInternalError": "Une erreur s'est produite, veuillez réessayer plus tard.",
+  "noInternetTitle": "No internet access",
+  "httpErrorWithCode": "Une erreur avec le code {code} s'est produite, contactez le support si nécessaire.",
   "@httpErrorWithCode": {
     "placeholders": {
       "code": {
         "type": "String"
       }
     }
-  }
+  },
+  "welcomeBack": "Bienvenue à nouveau",
+  "loginToYourAccount": "Connectez-vous à votre compte",
+  "username": "Nom d'utilisateur",
+  "pleaseEnterUsername": "Veuillez entrer le nom d'utilisateur.",
+  "password": "Mot de passe",
+  "pleaseEnterPassword": "Veuillez entrer le mot de passe.",
+  "login": "Connexion",
+  "dontHaveAnAccount": "Vous n'avez pas de compte ?",
+  "signup": "S'inscrire",
+  "products": "Produits",
+  "logout": "Déconnexion",
+  "setting": "Réglage",
+  "languages": "Langues"
 }

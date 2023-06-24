@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart' as intl_lib;
-
+import 'package:flutter_code_sample/extensions/object.dart';
 
 extension ContextExtensions on BuildContext {
   /// Localized strings of project
@@ -9,6 +9,11 @@ extension ContextExtensions on BuildContext {
 
   /// Typography for textStyle used in [Text] widget
   TextTheme get typography => Theme.of(this).textTheme;
+
+  /// Required arguments received between two Navigation destination
+  Object get requiredArguments {
+    return ModalRoute.of(this)!.settings.arguments.errorIfNull('Argument required');
+  }
 
   /// arguments received between two Navigation destination
   Object? get arguments => ModalRoute.of(this)!.settings.arguments;

@@ -129,6 +129,146 @@ class S {
       args: [code],
     );
   }
+
+  /// `No internet access`
+  String get noInternetTitle {
+    return Intl.message(
+      'No internet access',
+      name: 'noInternetTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome back`
+  String get welcomeBack {
+    return Intl.message(
+      'Welcome back',
+      name: 'welcomeBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login to your account`
+  String get loginToYourAccount {
+    return Intl.message(
+      'Login to your account',
+      name: 'loginToYourAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message(
+      'Username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter username.`
+  String get pleaseEnterUsername {
+    return Intl.message(
+      'Please enter username.',
+      name: 'pleaseEnterUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter password.`
+  String get pleaseEnterPassword {
+    return Intl.message(
+      'Please enter password.',
+      name: 'pleaseEnterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
+  String get dontHaveAnAccount {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'dontHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Signup`
+  String get signup {
+    return Intl.message(
+      'Signup',
+      name: 'signup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Products`
+  String get products {
+    return Intl.message(
+      'Products',
+      name: 'products',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get setting {
+    return Intl.message(
+      'Setting',
+      name: 'setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Languages`
+  String get languages {
+    return Intl.message(
+      'Languages',
+      name: 'languages',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

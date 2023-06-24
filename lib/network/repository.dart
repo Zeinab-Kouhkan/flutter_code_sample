@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart'; // ignore: unused_importrt';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_code_sample/data/entity/product.dart';
 
 import '../data/entity/login.dart';
 import '../data/memory/data_source.dart';
@@ -26,7 +27,13 @@ abstract class Repository {
     return _instance!;
   }
 
-  ImperativeDataResult login(LoginRequestData requestData);
+  DataResult<LoginData> login(LoginRequestData requestData);
+
+  DataResult<List<ProductData>> products();
+
+  DataResult<ProductData> productDetail(int id);
+
+  void clearProfileCache();
 }
 
 class _RepositoryImpl extends Repository {
@@ -66,7 +73,22 @@ class _RepositoryImpl extends Repository {
   }
 
   @override
-  ImperativeDataResult login(requestData) {
-    throw _apiClient.login(requestData);
+  DataResult<LoginData> login(requestData) {
+    return _apiClient.login(requestData);
+  }
+
+  @override
+  DataResult<List<ProductData>> products() {
+    return _apiClient.products();
+  }
+
+  @override
+  DataResult<ProductData> productDetail(int id) {
+    return _apiClient.productDetail( id);
+  }
+
+  @override
+  void clearProfileCache() {
+    // TODO: implement clearProfileCache
   }
 }

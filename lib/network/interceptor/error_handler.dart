@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 import '../../data/sharedpreferences.dart';
 import '../../routes.dart';
-import '../../utils/dialog.dart';
 import '../../utils/toast.dart';
 import '../error/error_observer.dart';
 
@@ -63,6 +62,7 @@ class DioErrorHandlerInterceptor extends Interceptor {
       _handleNoInternetError();
       return;
     }
+    _showToast(err);
     _showToast(err);
   }
 
@@ -141,16 +141,12 @@ class DioErrorHandlerInterceptor extends Interceptor {
   /// In maintenance state, show a dialog and wait for user to press retry
   /// After closing dialog notify consumers to reload.
   void _handleMaintenanceError() async {
-    if (_context == null || _isMaintenanceAlertShown) {
+/*    if (_context == null || _isMaintenanceAlertShown) {
       // app is not in foreground or dialog is shown before
       return;
-    }
+    }*/
     _isMaintenanceAlertShown = true;
-    await DialogUtils.showDialogPage(
-      context: _context!,
-      isDismissible: false,
-      child: const Text(''),
-    );
+    ToastUtils.show('server error', length: Toast.LENGTH_LONG);
     _isMaintenanceAlertShown = false;
     dioErrorObserver
         .retryForMaintenance(); // notify consumers it was a maintenance error
@@ -161,13 +157,12 @@ class DioErrorHandlerInterceptor extends Interceptor {
   /// When internet is not connected, show a dialog and wait for user to connect and press retry
   /// After closing dialog notify consumers to be prepared for reloading
   void _handleNoInternetError() async {
-    if (_context == null || _isNetworkAlertShown) {
+ /*   if (_context == null || _isNetworkAlertShown) {
       // app is not in foreground or dialog is shown before
       return;
-    }
+    }*/
     _isNetworkAlertShown = true;
-    await DialogUtils.showDialogPage(
-        context: _context!, child: const SizedBox());
+    ToastUtils.show('No internet access', length: Toast.LENGTH_LONG);
     _isNetworkAlertShown = false;
     dioErrorObserver
         .retryForInternetConnectivity(); // notify consumers it was a connectivity error

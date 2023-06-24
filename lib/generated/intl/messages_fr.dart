@@ -21,21 +21,41 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
   static String m0(code) =>
-      "Error with code ${code} occurred, contact support if necessary.";
+      "Une erreur avec le code ${code} s\'est produite, contactez le support si nécessaire.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName":
-            MessageLookupByLibrary.simpleMessage("Exemple de code flottant"),
+            MessageLookupByLibrary.simpleMessage("Exemple de code Flutter"),
+        "dontHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+            "Vous n\'avez pas de compte ?"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "farsi": MessageLookupByLibrary.simpleMessage("فارسی"),
         "french": MessageLookupByLibrary.simpleMessage("française"),
         "httpErrorWithCode": m0,
+        "languages": MessageLookupByLibrary.simpleMessage("Langues"),
+        "login": MessageLookupByLibrary.simpleMessage("Connexion"),
+        "loginToYourAccount": MessageLookupByLibrary.simpleMessage(
+            "Connectez-vous à votre compte"),
+        "logout": MessageLookupByLibrary.simpleMessage("Déconnexion"),
+        "noInternetTitle":
+            MessageLookupByLibrary.simpleMessage("No internet access"),
+        "password": MessageLookupByLibrary.simpleMessage("Mot de passe"),
+        "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
+            "Veuillez entrer le mot de passe."),
+        "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
+            "Veuillez entrer le nom d\'utilisateur."),
+        "products": MessageLookupByLibrary.simpleMessage("Produits"),
         "sendReceiveTimeoutError": MessageLookupByLibrary.simpleMessage(
-            "An error occurred during send or receive, please try again."),
+            "Une erreur s\'est produite lors de l\'envoi ou de la réception, veuillez réessayer."),
         "serverInternalError": MessageLookupByLibrary.simpleMessage(
-            "An error occurred, please try again later."),
+            "Une erreur s\'est produite, veuillez réessayer plus tard."),
+        "setting": MessageLookupByLibrary.simpleMessage("Réglage"),
+        "signup": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
         "socketError": MessageLookupByLibrary.simpleMessage(
-            "Error connecting to server, please check your internet connection.")
+            "Erreur de connexion au serveur, veuillez vérifier votre connexion Internet."),
+        "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
+        "welcomeBack":
+            MessageLookupByLibrary.simpleMessage("Bienvenue à nouveau")
       };
 }
